@@ -1,0 +1,3069 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+TOLL PARK MANAGEMENT SYSTEM
+</title>
+
+
+<style>
+
+/* =========================
+RESET
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+
+body{
+display:flex;
+height:100vh;
+overflow:hidden;
+background:#f5f7fa;
+}
+
+
+/* =========================
+SIDEBAR
+========================= */
+
+.sidebar{
+
+width:55px;
+background:#173a67;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+
+padding-top:8px;
+gap:8px;
+
+flex-shrink:0;
+
+}
+
+
+.menu{
+
+width:42px;
+height:42px;
+
+background:#28558f;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+text-align:center;
+font-size:9px;
+color:white;
+
+border-radius:8px;
+
+cursor:pointer;
+
+padding:2px;
+
+transition:0.2s;
+
+}
+
+
+.menu:hover{
+
+background:#3f6da6;
+
+}
+
+
+.activeMenu{
+
+background:#5d93d3;
+
+}
+
+
+/* =========================
+MAIN
+========================= */
+
+.main{
+
+flex:1;
+padding:10px;
+overflow:auto;
+
+}
+
+
+/* =========================
+HEADER
+========================= */
+
+.topBar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:10px;
+
+}
+
+
+.companyText{
+
+font-size:12px;
+color:#173a67;
+
+padding-left:5px;
+
+}
+
+
+/* =========================
+PROFILE BUTTON
+========================= */
+
+.profileTop{
+
+display:flex;
+align-items:center;
+gap:5px;
+
+background:white;
+
+padding:5px 10px;
+
+border-radius:20px;
+
+cursor:pointer;
+
+box-shadow:
+0 1px 4px rgba(0,0,0,0.15);
+
+}
+
+
+.profileTop img{
+
+width:28px;
+height:28px;
+border-radius:50%;
+
+}
+
+
+.profileTop span{
+
+font-size:11px;
+color:#173a67;
+
+}
+
+
+/* =========================
+PAGE SYSTEM
+========================= */
+
+.page{
+
+display:none;
+
+}
+
+
+.active{
+
+display:block;
+
+}
+
+
+/* =========================
+CARD
+========================= */
+
+.card{
+
+background:white;
+padding:15px;
+
+border-radius:8px;
+
+margin-bottom:10px;
+
+box-shadow:
+0 1px 4px rgba(0,0,0,0.08);
+
+}
+
+
+/* =========================
+PROFILE TABLE
+========================= */
+
+.profileTable{
+
+border-collapse:collapse;
+font-size:12px;
+
+}
+
+
+.profileTable td{
+
+border:1px solid #d8d8d8;
+padding:6px 8px;
+
+text-align:left;
+
+}
+
+
+.profileTable td:first-child{
+
+width:120px;
+background:#fafafa;
+
+}
+
+
+.profileTable input{
+
+width:100%;
+border:none;
+outline:none;
+
+font-size:12px;
+padding:3px;
+
+}
+
+
+/* =========================
+BUTTON
+========================= */
+
+button{
+
+padding:8px 12px;
+border:none;
+
+background:#173a67;
+color:white;
+
+font-size:11px;
+
+border-radius:5px;
+
+cursor:pointer;
+
+}
+
+
+/* =========================
+INPUT HEADER
+========================= */
+
+.inputHeader{
+
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+
+margin-bottom:15px;
+
+}
+
+
+.inputTitle{
+
+font-size:14px;
+font-weight:bold;
+color:#173a67;
+
+}
+
+
+/* =========================
+PERIODE TABLE
+========================= */
+
+.periodeTable{
+
+border-collapse:collapse;
+font-size:11px;
+
+}
+
+
+.periodeTable td{
+
+border:1px solid #d8d8d8;
+padding:4px 6px;
+
+}
+
+
+.periodeTable select{
+
+border:none;
+outline:none;
+font-size:11px;
+padding:3px;
+
+}
+
+
+/* =========================
+MAIN TABLE
+========================= */
+
+.mainTable{
+
+width:100%;
+border-collapse:collapse;
+font-size:10px;
+
+}
+
+
+.mainTable th{
+
+border:1px solid #d8d8d8;
+padding:5px;
+
+background:#173a67;
+color:white;
+
+text-align:center;
+
+}
+
+
+.mainTable td{
+
+border:1px solid #d8d8d8;
+padding:3px;
+
+text-align:center;
+vertical-align:middle;
+
+}
+
+
+.mainTable input{
+
+width:100%;
+border:none;
+outline:none;
+
+font-size:10px;
+padding:3px;
+
+}
+
+
+/* =========================
+TANGGAL CENTER
+========================= */
+
+.tanggalCell{
+
+text-align:center !important;
+vertical-align:middle !important;
+
+}
+
+
+.tanggalCell input{
+
+text-align:center !important;
+width:100%;
+font-size:10px;
+
+}
+
+
+/* =========================
+ACTION BUTTON
+========================= */
+
+.actionBtn{
+
+background:transparent;
+border:none;
+
+cursor:pointer;
+font-size:15px;
+
+padding:2px;
+
+}
+
+
+/* =========================
+SUBTOTAL
+========================= */
+
+.subtotalWrap{
+
+display:flex;
+justify-content:flex-end;
+
+margin-top:10px;
+
+}
+
+
+.subtotalTable{
+
+border-collapse:collapse;
+font-size:11px;
+
+}
+
+
+.subtotalTable td{
+
+border:1px solid #d8d8d8;
+padding:5px 10px;
+
+}
+
+
+.subtotalTable td:first-child{
+
+background:#fafafa;
+
+}
+
+
+/* =========================
+ADD BUTTON
+========================= */
+
+.addRowWrap{
+
+display:flex;
+justify-content:flex-end;
+
+margin-top:10px;
+
+}
+
+
+/* =========================
+HOME
+========================= */
+
+.homeText{
+
+height:80vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:22px;
+color:#173a67;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<!-- ======================
+SIDEBAR
+====================== -->
+
+<div class="sidebar">
+
+
+<div class="menu"
+onclick="showPage('home',this)">
+
+🏠<br>Home
+
+</div>
+
+
+<div class="menu activeMenu"
+onclick="showPage('input',this)">
+
+📝<br>Input
+
+</div>
+
+
+<div class="menu"
+onclick="showPage('toll',this)">
+
+🛣<br>Toll
+
+</div>
+
+
+<div class="menu"
+onclick="showPage('bbm',this)">
+
+⛽<br>BBM
+
+</div>
+
+
+<div class="menu"
+onclick="showPage('ot',this)">
+
+⏰<br>OT
+
+</div>
+
+
+</div>
+
+
+
+<!-- ======================
+MAIN
+====================== -->
+
+<div class="main">
+
+
+<!-- HEADER -->
+
+<div class="topBar">
+
+
+<div class="companyText">
+
+PT JASA MANDIRI TECHGRAHA
+
+</div>
+
+
+<div class="profileTop"
+onclick="showPage('profile')">
+
+<img src=
+"https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+
+<span>
+Profile
+</span>
+
+</div>
+
+
+</div>
+
+
+
+<!-- HOME -->
+
+<div id="home"
+class="page">
+
+<div class="card homeText">
+
+PT JASA MANDIRI TECHGRAHA
+
+</div>
+
+</div>
+
+<!-- ======================
+PROFILE PAGE
+====================== -->
+
+<div id="profile"
+class="page">
+
+<div class="card">
+
+<h3 style="margin-bottom:15px;">
+
+PROFILE
+
+</h3>
+
+
+<table class="profileTable">
+
+<tr>
+
+<td>Nama</td>
+
+<td>
+
+<input
+id="nama"
+type="text"
+oninput=
+"this.value=this.value.toUpperCase()">
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>NIK</td>
+
+<td>
+
+<input
+id="nik"
+maxlength="5"
+inputmode="numeric"
+oninput=
+"this.value=this.value.replace(/[^0-9]/g,'')">
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>User</td>
+
+<td>
+
+<input
+id="user"
+type="text"
+oninput=
+"this.value=this.value.toUpperCase()">
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>Lokasi Kerja</td>
+
+<td>
+
+<input
+id="lokasi"
+type="text"
+oninput=
+"this.value=this.value.toUpperCase()">
+
+</td>
+
+</tr>
+
+</table>
+
+
+<div style="margin-top:15px;">
+
+<button onclick="saveProfile()">
+Simpan Data
+</button>
+
+<button onclick="editProfile()">
+Edit
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ======================
+INPUT PAGE
+DEFAULT OPEN PAGE
+====================== -->
+
+<div id="input"
+class="page active">
+
+<div class="card">
+
+
+<!-- HEADER INPUT -->
+
+<div class="inputHeader">
+
+
+<div class="inputTitle">
+
+INPUT DATA TOLL PARKIR
+
+</div>
+
+
+
+<!-- PERIODE -->
+
+<table class="periodeTable">
+
+<tr>
+
+<td>
+
+Periode
+
+</td>
+
+
+<td>
+
+<select
+id="bulan"
+onchange="loadPeriodData()">
+
+<option value="">
+Bulan
+</option>
+
+<option>Januari</option>
+<option>Februari</option>
+<option>Maret</option>
+<option>April</option>
+<option>Mei</option>
+<option>Juni</option>
+<option>Juli</option>
+<option>Agustus</option>
+<option>September</option>
+<option>Oktober</option>
+<option>November</option>
+<option>Desember</option>
+
+</select>
+
+</td>
+
+
+<td>
+
+<select
+id="tahun"
+onchange="loadPeriodData()">
+
+<option value="">
+Tahun
+</option>
+
+<option>2026</option>
+<option>2027</option>
+<option>2028</option>
+<option>2029</option>
+<option>2030</option>
+<option>2031</option>
+<option>2032</option>
+<option>2033</option>
+<option>2034</option>
+<option>2035</option>
+<option>2036</option>
+<option>2037</option>
+<option>2038</option>
+<option>2039</option>
+<option>2040</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</table>
+
+
+</div>
+
+
+
+<!-- ======================
+TABLE
+====================== -->
+
+<table
+class="mainTable"
+id="inputTable">
+
+
+<thead>
+
+
+<tr>
+
+<th rowspan="2">
+
+Tanggal
+
+</th>
+
+
+<th rowspan="2">
+
+No
+
+</th>
+
+
+<th colspan="2">
+
+Highway
+
+</th>
+
+
+<th rowspan="2">
+
+Parking Loc
+
+</th>
+
+
+<th rowspan="2">
+
+Flazz BCA
+
+</th>
+
+
+<th rowspan="2">
+
+Cash
+
+</th>
+
+
+<th rowspan="2">
+
+KM
+
+</th>
+
+
+<th rowspan="2">
+
+Total
+
+</th>
+
+
+<th rowspan="2">
+
+Aksi
+
+</th>
+
+</tr>
+
+
+
+<tr>
+
+<th>
+
+Start
+
+</th>
+
+
+<th>
+
+Arrive
+
+</th>
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="tableBody">
+
+
+<!-- ROW AWAL -->
+
+<tr>
+
+
+<td class="tanggalCell">
+
+<input
+class="tanggal"
+style="text-align:center;"
+maxlength="2"
+inputmode="numeric"
+oninput="onlyDate(this)">
+
+</td>
+
+
+<td class="noCell">
+
+1
+
+</td>
+
+
+<td>
+
+<input
+class="start">
+
+</td>
+
+
+<td>
+
+<input
+class="arrive">
+
+</td>
+
+
+<td>
+
+<input
+class="parkingLoc">
+
+</td>
+
+
+<td>
+
+<input
+class="flazz"
+oninput=
+"formatRupiah(this);
+calculateRow(this)">
+
+</td>
+
+
+<td>
+
+<input
+class="cash"
+oninput=
+"formatRupiah(this);
+calculateRow(this)">
+
+</td>
+
+
+<td>
+
+<input
+class="km"
+inputmode="numeric"
+oninput=
+"formatNumber(this)">
+
+</td>
+
+
+<td class="rowTotal">
+
+</td>
+
+
+<td>
+
+
+<button
+class="actionBtn"
+onclick=
+"saveRow(this)">
+
+💾
+
+</button>
+
+
+
+<button
+class="actionBtn"
+onclick=
+"editRow(this)">
+
+✏️
+
+</button>
+
+
+
+<button
+class="actionBtn"
+onclick=
+"deleteRow(this)">
+
+🗑️
+
+</button>
+
+
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+
+
+<!-- ======================
+SUB TOTAL
+====================== -->
+
+<div class="subtotalWrap">
+
+<table
+class="subtotalTable">
+
+<tr>
+
+<td>
+
+Sub Total
+
+</td>
+
+
+<td id="subTotal">
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+
+
+<!-- ======================
+ADD ROW
+====================== -->
+
+<div class="addRowWrap">
+
+<button
+onclick="addNewRow()">
+
++ Tambah Baris
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<!-- ======================
+STANDBY PAGE
+====================== -->
+
+<div id="toll"
+class="page">
+
+<div class="card">
+
+HALAMAN TOLL
+
+</div>
+
+</div>
+
+
+
+<div id="bbm"
+class="page">
+
+<div class="card">
+
+HALAMAN BBM
+
+</div>
+
+</div>
+
+
+
+<div id="ot"
+class="page">
+
+<div class="card">
+
+HALAMAN OVERTIME
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* ======================
+PAGE NAVIGATION
+====================== */
+
+function showPage(id,el){
+
+let pages=
+document.querySelectorAll(
+".page"
+);
+
+pages.forEach(function(p){
+
+p.classList.remove(
+"active"
+);
+
+});
+
+
+document
+.getElementById(id)
+.classList.add(
+"active"
+);
+
+
+let menus=
+document.querySelectorAll(
+".menu"
+);
+
+menus.forEach(function(m){
+
+m.classList.remove(
+"activeMenu"
+);
+
+});
+
+
+if(el){
+
+el.classList.add(
+"activeMenu"
+);
+
+}
+
+}
+
+/* ======================
+PROFILE SAVE
+====================== */
+
+function saveProfile(){
+
+let ok=
+confirm(
+"Data sudah benar?"
+);
+
+if(!ok) return;
+
+
+let data={
+
+nama:
+document.getElementById(
+"nama"
+).value,
+
+nik:
+document.getElementById(
+"nik"
+).value,
+
+user:
+document.getElementById(
+"user"
+).value,
+
+lokasi:
+document.getElementById(
+"lokasi"
+).value
+
+};
+
+
+localStorage.setItem(
+
+"profileData",
+
+JSON.stringify(data)
+
+);
+
+
+/* lock */
+
+document.getElementById(
+"nama"
+).readOnly=true;
+
+document.getElementById(
+"nik"
+).readOnly=true;
+
+document.getElementById(
+"user"
+).readOnly=true;
+
+document.getElementById(
+"lokasi"
+).readOnly=true;
+
+}
+
+
+
+/* ======================
+EDIT PROFILE
+====================== */
+
+function editProfile(){
+
+document.getElementById(
+"nama"
+).readOnly=false;
+
+document.getElementById(
+"nik"
+).readOnly=false;
+
+document.getElementById(
+"user"
+).readOnly=false;
+
+document.getElementById(
+"lokasi"
+).readOnly=false;
+
+}
+
+
+
+/* ======================
+LOAD PROFILE
+====================== */
+
+function loadProfile(){
+
+let data=
+localStorage.getItem(
+"profileData"
+);
+
+if(!data) return;
+
+
+let p=
+JSON.parse(data);
+
+
+document.getElementById(
+"nama"
+).value=
+p.nama||"";
+
+
+document.getElementById(
+"nik"
+).value=
+p.nik||"";
+
+
+document.getElementById(
+"user"
+).value=
+p.user||"";
+
+
+document.getElementById(
+"lokasi"
+).value=
+p.lokasi||"";
+
+
+/* readonly */
+
+document.getElementById(
+"nama"
+).readOnly=true;
+
+document.getElementById(
+"nik"
+).readOnly=true;
+
+document.getElementById(
+"user"
+).readOnly=true;
+
+document.getElementById(
+"lokasi"
+).readOnly=true;
+
+}
+
+
+
+/* ======================
+ADD NEW ROW
+====================== */
+
+function addNewRow(){
+
+let tbody=
+document.getElementById(
+"tableBody"
+);
+
+
+let num=
+tbody.rows.length+1;
+
+
+let tr=
+document.createElement(
+"tr"
+);
+
+
+tr.innerHTML=`
+
+<td class="tanggalCell">
+
+<input
+class="tanggal"
+style="text-align:center;"
+maxlength="2"
+inputmode="numeric"
+oninput="onlyDate(this)">
+
+</td>
+
+
+<td class="noCell">
+
+${num}
+
+</td>
+
+
+<td>
+
+<input
+class="start">
+
+</td>
+
+
+<td>
+
+<input
+class="arrive">
+
+</td>
+
+
+<td>
+
+<input
+class="parkingLoc">
+
+</td>
+
+
+<td>
+
+<input
+class="flazz"
+oninput=
+"formatRupiah(this);
+calculateRow(this)">
+
+</td>
+
+
+<td>
+
+<input
+class="cash"
+oninput=
+"formatRupiah(this);
+calculateRow(this)">
+
+</td>
+
+
+<td>
+
+<input
+class="km"
+inputmode="numeric"
+oninput=
+"formatNumber(this)">
+
+</td>
+
+
+<td class="rowTotal">
+
+</td>
+
+
+<td>
+
+<button
+class="actionBtn"
+onclick=
+"saveRow(this)">
+
+💾
+
+</button>
+
+
+<button
+class="actionBtn"
+onclick=
+"editRow(this)">
+
+✏️
+
+</button>
+
+
+<button
+class="actionBtn"
+onclick=
+"deleteRow(this)">
+
+🗑️
+
+</button>
+
+</td>
+
+`;
+
+
+tbody.appendChild(tr);
+
+reNumberRows();
+
+}
+
+
+
+/* ======================
+ONLY DATE
+====================== */
+
+function onlyDate(el){
+
+el.value=
+el.value.replace(
+/[^0-9]/g,''
+);
+
+
+if(Number(el.value)>31){
+
+el.value="31";
+
+}
+
+}
+
+
+
+/* ======================
+FORMAT KM
+====================== */
+
+function formatNumber(el){
+
+let num=
+el.value.replace(
+/[^0-9]/g,''
+);
+
+if(!num){
+
+el.value="";
+return;
+
+}
+
+el.value=
+
+Number(num)
+.toLocaleString(
+'id-ID'
+);
+
+}
+
+
+
+/* ======================
+FORMAT RUPIAH
+====================== */
+
+function formatRupiah(el){
+
+let angka=
+el.value.replace(
+/[^0-9]/g,''
+);
+
+
+if(!angka){
+
+el.value="";
+return;
+
+}
+
+
+el.value=
+
+"Rp " +
+
+Number(angka)
+.toLocaleString(
+'id-ID'
+);
+
+}
+
+
+
+/* ======================
+PARSE CURRENCY
+====================== */
+
+function parseCurrency(str){
+
+if(!str) return 0;
+
+
+return Number(
+
+str.replace(
+/[^0-9]/g,''
+)
+
+)||0;
+
+}
+
+
+
+/* ======================
+CALCULATE SINGLE ROW
+====================== */
+
+function calculateRow(el){
+
+let row=
+el.closest("tr");
+
+
+let flazz=
+row.querySelector(
+".flazz"
+).value;
+
+
+let cash=
+row.querySelector(
+".cash"
+).value;
+
+
+let f=
+parseCurrency(flazz);
+
+let c=
+parseCurrency(cash);
+
+
+let total=
+f+c;
+
+
+/* jangan tampil Rp0 */
+
+if(f===0 && c===0){
+
+row.querySelector(
+".rowTotal"
+).innerText="";
+
+}
+else{
+
+row.querySelector(
+".rowTotal"
+).innerText=
+
+"Rp " +
+
+total.toLocaleString(
+'id-ID'
+);
+
+}
+
+
+calculateSubtotal();
+
+}
+
+
+
+/* ======================
+SUBTOTAL
+====================== */
+
+function calculateSubtotal(){
+
+let total=0;
+
+
+let rows=
+document.querySelectorAll(
+"#tableBody tr"
+);
+
+
+rows.forEach(function(row){
+
+let flazz=
+parseCurrency(
+
+row.querySelector(
+".flazz"
+).value
+
+);
+
+
+let cash=
+parseCurrency(
+
+row.querySelector(
+".cash"
+).value
+
+);
+
+
+total+=
+flazz+cash;
+
+});
+
+
+if(total===0){
+
+document.getElementById(
+"subTotal"
+).innerText="";
+
+}
+else{
+
+document.getElementById(
+"subTotal"
+).innerText=
+
+"Rp " +
+
+total.toLocaleString(
+'id-ID'
+);
+
+}
+
+}
+
+/* ======================
+GET CURRENT PERIOD
+====================== */
+
+function getCurrentPeriod(){
+
+let bulan=
+document.getElementById(
+"bulan"
+).value;
+
+let tahun=
+document.getElementById(
+"tahun"
+).value;
+
+
+if(!bulan || !tahun){
+
+return null;
+
+}
+
+
+return bulan+"-"+tahun;
+
+}
+
+
+
+/* ======================
+SAVE ROW
+PERIODE WAJIB
+====================== */
+
+function saveRow(btn){
+
+let bulan=
+document.getElementById(
+"bulan"
+).value;
+
+
+let tahun=
+document.getElementById(
+"tahun"
+).value;
+
+
+/* wajib isi periode */
+
+if(!bulan || !tahun){
+
+alert(
+
+"Pilih periode bulan dan tahun terlebih dahulu"
+
+);
+
+return;
+
+}
+
+
+let periode=
+bulan+"-"+tahun;
+
+
+let row=
+btn.closest("tr");
+
+
+let start=
+row.querySelector(
+".start"
+).value.trim();
+
+
+let arrive=
+row.querySelector(
+".arrive"
+).value.trim();
+
+
+let parking=
+row.querySelector(
+".parkingLoc"
+).value.trim();
+
+
+let flazz=
+row.querySelector(
+".flazz"
+).value.trim();
+
+
+let cash=
+row.querySelector(
+".cash"
+).value.trim();
+
+
+
+/* validasi */
+
+if(
+
+start!=="" ||
+
+arrive!=="" ||
+
+parking!==""
+
+){
+
+if(
+
+flazz==="" ||
+
+cash===""
+
+){
+
+alert(
+
+"Flazz BCA dan Cash wajib diisi"
+
+);
+
+return;
+
+}
+
+}
+
+
+/* confirm */
+
+let ok=
+confirm(
+"Data sudah benar?"
+);
+
+if(!ok) return;
+
+
+/* readonly */
+
+let inputs=
+row.querySelectorAll(
+"input"
+);
+
+inputs.forEach(function(inp){
+
+inp.readOnly=true;
+
+});
+
+
+/* save */
+
+saveAllRows();
+
+
+/* simpan periode terakhir */
+
+localStorage.setItem(
+
+"lastPeriod",
+
+periode
+
+);
+
+}
+
+
+
+/* ======================
+EDIT ROW
+====================== */
+
+function editRow(btn){
+
+let row=
+btn.closest("tr");
+
+
+let inputs=
+row.querySelectorAll(
+"input"
+);
+
+
+inputs.forEach(function(inp){
+
+inp.readOnly=false;
+
+});
+
+}
+
+
+
+/* ======================
+DELETE ROW
+====================== */
+
+function deleteRow(btn){
+
+let ok=
+confirm(
+"Hapus data ini?"
+);
+
+if(!ok) return;
+
+
+let row=
+btn.closest("tr");
+
+row.remove();
+
+
+reNumberRows();
+
+calculateSubtotal();
+
+saveAllRows();
+
+}
+
+
+
+/* ======================
+SAVE ALL ROWS
+====================== */
+
+function saveAllRows(){
+
+let periode=
+getCurrentPeriod();
+
+if(!periode) return;
+
+
+let rows=
+document.querySelectorAll(
+"#tableBody tr"
+);
+
+
+let data=[];
+
+
+rows.forEach(function(row){
+
+let obj={
+
+tanggal:
+row.querySelector(
+".tanggal"
+).value,
+
+start:
+row.querySelector(
+".start"
+).value,
+
+arrive:
+row.querySelector(
+".arrive"
+).value,
+
+parking:
+row.querySelector(
+".parkingLoc"
+).value,
+
+flazz:
+row.querySelector(
+".flazz"
+).value,
+
+cash:
+row.querySelector(
+".cash"
+).value,
+
+km:
+row.querySelector(
+".km"
+).value,
+
+locked:
+row.querySelector(
+".start"
+).readOnly
+
+};
+
+
+data.push(obj);
+
+});
+
+
+let allData=
+JSON.parse(
+
+localStorage.getItem(
+"tollParkData"
+)
+
+)||{};
+
+
+allData[periode]=data;
+
+
+localStorage.setItem(
+
+"tollParkData",
+
+JSON.stringify(allData)
+
+);
+
+
+/* save periode terakhir */
+
+localStorage.setItem(
+
+"lastPeriod",
+
+periode
+
+);
+
+}
+
+
+
+/* ======================
+LOAD DATA PER PERIODE
+====================== */
+
+function loadPeriodData(){
+
+let periode=
+getCurrentPeriod();
+
+if(!periode) return;
+
+
+let allData=
+JSON.parse(
+
+localStorage.getItem(
+"tollParkData"
+)
+
+)||{};
+
+
+let data=
+allData[periode]||[];
+
+
+let tbody=
+document.getElementById(
+"tableBody"
+);
+
+
+tbody.innerHTML="";
+
+
+/* kosong */
+
+if(data.length===0){
+
+addNewRow();
+
+return;
+
+}
+
+
+/* render */
+
+data.forEach(function(d,i){
+
+let tr=
+document.createElement(
+"tr"
+);
+
+
+tr.innerHTML=`
+
+<td class="tanggalCell">
+
+<input
+class="tanggal"
+style="text-align:center;"
+value="${d.tanggal}"
+maxlength="2"
+inputmode="numeric"
+oninput="onlyDate(this)">
+
+</td>
+
+
+<td class="noCell">
+
+${i+1}
+
+</td>
+
+
+<td>
+
+<input
+class="start"
+value="${d.start}">
+
+</td>
+
+
+<td>
+
+<input
+class="arrive"
+value="${d.arrive}">
+
+</td>
+
+
+<td>
+
+<input
+class="parkingLoc"
+value="${d.parking}">
+
+</td>
+
+
+<td>
+
+<input
+class="flazz"
+value="${d.flazz}"
+oninput=
+"formatRupiah(this);
+calculateRow(this)">
+
+</td>
+
+
+<td>
+
+<input
+class="cash"
+value="${d.cash}"
+oninput=
+"formatRupiah(this);
+calculateRow(this)">
+
+</td>
+
+
+<td>
+
+<input
+class="km"
+value="${d.km}"
+inputmode="numeric"
+oninput=
+"formatNumber(this)">
+
+</td>
+
+
+<td class="rowTotal">
+
+</td>
+
+
+<td>
+
+<button
+class="actionBtn"
+onclick=
+"saveRow(this)">
+
+💾
+
+</button>
+
+
+<button
+class="actionBtn"
+onclick=
+"editRow(this)">
+
+✏️
+
+</button>
+
+
+<button
+class="actionBtn"
+onclick=
+"deleteRow(this)">
+
+🗑️
+
+</button>
+
+</td>
+
+`;
+
+
+tbody.appendChild(tr);
+
+
+/* restore readonly */
+
+if(d.locked){
+
+let inputs=
+tr.querySelectorAll(
+"input"
+);
+
+inputs.forEach(function(inp){
+
+inp.readOnly=true;
+
+});
+
+}
+
+});
+
+
+calculateAllRows();
+
+}
+
+
+
+/* ======================
+RENUMBER BASIC
+(part 5 override)
+====================== */
+
+function reNumberRows(){
+
+let rows=
+document.querySelectorAll(
+"#tableBody tr"
+);
+
+
+rows.forEach(function(row,i){
+
+row.querySelector(
+".noCell"
+).innerText=
+i+1;
+
+});
+
+}
+
+/* ======================
+CALCULATE ALL ROWS
+====================== */
+
+function calculateAllRows(){
+
+let rows=
+document.querySelectorAll(
+"#tableBody tr"
+);
+
+
+/* reset row total */
+
+rows.forEach(function(row){
+
+let flazz=
+parseCurrency(
+
+row.querySelector(
+".flazz"
+).value
+
+);
+
+let cash=
+parseCurrency(
+
+row.querySelector(
+".cash"
+).value
+
+);
+
+
+let total=
+flazz+cash;
+
+
+/* kosong */
+
+if(total===0){
+
+row.querySelector(
+".rowTotal"
+).innerText="";
+
+}
+else{
+
+row.querySelector(
+".rowTotal"
+).innerText=
+
+"Rp " +
+
+total.toLocaleString(
+'id-ID'
+);
+
+}
+
+});
+
+
+calculateSubtotal();
+
+mergeTanggal();
+
+}
+
+
+
+/* ======================
+MERGE TANGGAL
+====================== */
+
+function mergeTanggal(){
+
+let rows=
+Array.from(
+
+document.querySelectorAll(
+"#tableBody tr"
+)
+
+);
+
+
+if(rows.length===0) return;
+
+
+/* reset */
+
+rows.forEach(function(row){
+
+row.cells[0].style.display="";
+
+row.cells[0].rowSpan=1;
+
+});
+
+
+let groups={};
+
+
+/* grouping */
+
+rows.forEach(function(row){
+
+let tanggal=
+row.querySelector(
+".tanggal"
+).value.trim();
+
+
+if(!tanggal) return;
+
+
+if(!groups[tanggal]){
+
+groups[tanggal]=[];
+
+}
+
+
+groups[tanggal].push(row);
+
+});
+
+
+/* merge cell */
+
+Object.keys(groups)
+.forEach(function(tgl){
+
+let arr=
+groups[tgl];
+
+
+if(arr.length>1){
+
+arr[0].cells[0].rowSpan=
+arr.length;
+
+
+/* hide cell bawah */
+
+for(
+let i=1;
+i<arr.length;
+i++
+){
+
+arr[i].cells[0]
+.style.display=
+"none";
+
+}
+
+}
+
+});
+
+
+reNumberRows();
+
+updateGroupTotal();
+
+}
+
+
+
+/* ======================
+NUMBER RESET BY DATE
+====================== */
+
+function reNumberRows(){
+
+let rows=
+Array.from(
+
+document.querySelectorAll(
+"#tableBody tr"
+)
+
+);
+
+
+let groups={};
+
+
+rows.forEach(function(row){
+
+let tanggal=
+row.querySelector(
+".tanggal"
+).value.trim();
+
+
+/* kosong */
+
+if(!tanggal){
+
+row.querySelector(
+".noCell"
+).innerText="1";
+
+return;
+
+}
+
+
+if(!groups[tanggal]){
+
+groups[tanggal]=[];
+
+}
+
+
+groups[tanggal].push(row);
+
+});
+
+
+/* reset per tanggal */
+
+Object.keys(groups)
+.forEach(function(tgl){
+
+let arr=
+groups[tgl];
+
+
+arr.forEach(function(row,index){
+
+row.querySelector(
+".noCell"
+).innerText=
+index+1;
+
+});
+
+});
+
+}
+
+
+
+/* ======================
+TOTAL PER DATE GROUP
+====================== */
+
+function updateGroupTotal(){
+
+let rows=
+Array.from(
+
+document.querySelectorAll(
+"#tableBody tr"
+)
+
+);
+
+
+if(rows.length===0) return;
+
+
+/* kosongkan total semua */
+
+rows.forEach(function(row){
+
+row.querySelector(
+".rowTotal"
+).innerText="";
+
+});
+
+
+let groups={};
+
+
+/* grouping */
+
+rows.forEach(function(row){
+
+let tanggal=
+row.querySelector(
+".tanggal"
+).value.trim();
+
+
+if(!tanggal) return;
+
+
+if(!groups[tanggal]){
+
+groups[tanggal]=[];
+
+}
+
+
+groups[tanggal].push(row);
+
+});
+
+
+/* hitung total tiap grup */
+
+Object.keys(groups)
+.forEach(function(tgl){
+
+let arr=
+groups[tgl];
+
+let totalGroup=0;
+
+
+/* jumlah semua row */
+
+arr.forEach(function(row){
+
+let flazz=
+parseCurrency(
+
+row.querySelector(
+".flazz"
+).value
+
+);
+
+
+let cash=
+parseCurrency(
+
+row.querySelector(
+".cash"
+).value
+
+);
+
+
+totalGroup+=
+flazz+cash;
+
+});
+
+
+/* kosongkan row atas */
+
+for(
+let i=0;
+i<arr.length-1;
+i++
+){
+
+arr[i]
+.querySelector(
+".rowTotal"
+).innerText="";
+
+}
+
+
+/* hanya row terakhir */
+
+let lastRow=
+
+arr[
+arr.length-1
+];
+
+
+/* jika total kosong */
+
+if(totalGroup===0){
+
+lastRow
+.querySelector(
+".rowTotal"
+).innerText="";
+
+}
+else{
+
+lastRow
+.querySelector(
+".rowTotal"
+).innerText=
+
+"Rp " +
+
+totalGroup.toLocaleString(
+'id-ID'
+);
+
+}
+
+});
+
+
+calculateSubtotal();
+
+}
+
+
+
+/* ======================
+AUTO RECALCULATE
+====================== */
+
+document.addEventListener(
+
+"input",
+
+function(e){
+
+if(
+
+e.target.classList.contains(
+"tanggal"
+)
+
+||
+
+e.target.classList.contains(
+"flazz"
+)
+
+||
+
+e.target.classList.contains(
+"cash"
+)
+
+||
+
+e.target.classList.contains(
+"start"
+)
+
+||
+
+e.target.classList.contains(
+"arrive"
+)
+
+||
+
+e.target.classList.contains(
+"parkingLoc"
+)
+
+||
+
+e.target.classList.contains(
+"km"
+)
+
+){
+
+calculateAllRows();
+
+saveAllRows();
+
+}
+
+}
+
+);
+
+/* ======================
+AUTO SAVE INPUT CHANGE
+====================== */
+
+document.addEventListener(
+
+"change",
+
+function(e){
+
+if(
+
+e.target.classList.contains(
+"tanggal"
+)
+
+||
+
+e.target.classList.contains(
+"start"
+)
+
+||
+
+e.target.classList.contains(
+"arrive"
+)
+
+||
+
+e.target.classList.contains(
+"parkingLoc"
+)
+
+||
+
+e.target.classList.contains(
+"flazz"
+)
+
+||
+
+e.target.classList.contains(
+"cash"
+)
+
+||
+
+e.target.classList.contains(
+"km"
+)
+
+){
+
+saveAllRows();
+
+}
+
+}
+
+);
+
+
+
+/* ======================
+RESTORE LAST PERIOD
+====================== */
+
+function restoreLastPeriod(){
+
+let lastPeriod=
+
+localStorage.getItem(
+"lastPeriod"
+);
+
+
+/* belum pernah simpan */
+
+if(!lastPeriod){
+
+let tbody=
+document.getElementById(
+"tableBody"
+);
+
+if(tbody.rows.length===0){
+
+addNewRow();
+
+}
+
+return;
+
+}
+
+
+/* format bulan-tahun */
+
+let arr=
+lastPeriod.split("-");
+
+
+if(arr.length!==2){
+
+addNewRow();
+
+return;
+
+}
+
+
+/* isi dropdown otomatis */
+
+document.getElementById(
+"bulan"
+).value=
+arr[0];
+
+
+document.getElementById(
+"tahun"
+).value=
+arr[1];
+
+
+/* tampilkan data sesuai periode */
+
+loadPeriodData();
+
+}
+
+
+
+/* ======================
+DELETE OVERRIDE
+SAFETY EMPTY TABLE
+====================== */
+
+function deleteRow(btn){
+
+let ok=
+confirm(
+"Hapus data ini?"
+);
+
+if(!ok) return;
+
+
+let row=
+btn.closest("tr");
+
+row.remove();
+
+
+/* jika kosong buat row baru */
+
+let totalRows=
+
+document.querySelectorAll(
+"#tableBody tr"
+).length;
+
+
+if(totalRows===0){
+
+addNewRow();
+
+}
+
+
+/* refresh */
+
+reNumberRows();
+
+calculateAllRows();
+
+saveAllRows();
+
+}
+
+
+
+/* ======================
+AUTO SAVE PERIOD CHANGE
+====================== */
+
+document.getElementById(
+"bulan"
+).addEventListener(
+
+"change",
+
+function(){
+
+saveAllRows();
+
+}
+
+);
+
+
+document.getElementById(
+"tahun"
+).addEventListener(
+
+"change",
+
+function(){
+
+saveAllRows();
+
+}
+
+);
+
+
+
+/* ======================
+WINDOW LOAD
+DEFAULT PAGE INPUT
+====================== */
+
+window.onload=function(){
+
+
+/* load profile */
+
+loadProfile();
+
+
+/* buka halaman input */
+
+showPage("input");
+
+
+/* restore periode terakhir */
+
+restoreLastPeriod();
+
+
+/* recalculate */
+
+calculateAllRows();
+
+};
+
+
+
+/* ======================
+FIRST START SAFETY
+====================== */
+
+if(
+
+document.querySelectorAll(
+"#tableBody tr"
+).length===0
+
+){
+
+addNewRow();
+
+}
+
+
+
+/* ======================
+SYNC SUBTOTAL
+====================== */
+
+setInterval(function(){
+
+calculateSubtotal();
+
+},500);
+
+
+
+</script>
+
+</div>
+
+</body>
+
+</html>
